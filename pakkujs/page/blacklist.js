@@ -17,6 +17,15 @@ chrome.runtime.getBackgroundPage(function(bgpage) {
         bgpage.loadconfig();
         location.reload();
     });
+    id('load').addEventListener('click', function() {
+        var currentBlacklist = JSON.parse(localStorage.getItem('BLACKLIST'));
+        var result = '<filters>';
+        for (var rule of currentBlacklist) {
+            result += '\n    <item enabled="true">r=' + rule[0] + '</item>';
+        }
+        result += '\n</filters>';
+        id('rules').value = result;
+    })
     var BLACKLIST=bgpage.fromholyjson(localStorage['BLACKLIST']);
     id('count').textContent=BLACKLIST.length;
     id('import').addEventListener('click',function() {
